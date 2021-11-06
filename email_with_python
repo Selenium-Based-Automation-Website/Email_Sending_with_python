@@ -1,0 +1,50 @@
+import smtplib
+from email.message import EmailMessage
+import time
+
+email_address = 'shaikhraza@eng.rizvi.edu.in'
+email_password = 'hcclvvdxnmrngydo'
+
+
+msg = EmailMessage()
+
+msg['Subject'] = 'Your Application is Successfully Accepted'
+msg['From'] = email_address
+msg['To'] = 'Iramshaikh861@gmail.com'        #email_address    ##'shaikhraza@gmail.com' 
+
+
+# The below text wont come as alternative var is defined
+# msg.set_content('This is a plain text email')
+
+msg.add_alternative("""\
+
+<!DOCTYPE html>
+<html lang="en">
+<body>
+ <p>Hi,</p>
+ <p>Your PAN Card request is under NSDL portal. Please wait a few days. After completion your 
+ e-PAN card is automatically sent to your email and a physical PAN card will be sent to your address.</p>
+ <br>
+ <p>Please let me know if you need any further request from our website.please visit our Privacy Policy.</p>
+ <p style="color:green;">Thank you for your consideration.</p>
+ 
+ <hr>
+ <h1 style="color:Red;">Thank You!</h1>
+ <h2 style="color:steelblue;">For Choosing Our Service</h2>
+ <hr>
+ <p>www.quickservice.com</p>
+ 
+</body>
+</html>
+
+""", subtype='html')
+
+
+
+i = 1
+
+while i<7 :
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+        smtp.login(email_address, email_password)
+        smtp.send_message(msg)
+        time.sleep(3600)
